@@ -69,7 +69,7 @@ class _SerieUniqueViewState extends State<SerieUniqueView> {
         child: Text(
             serie.otrosDatos.pesoAnterior != null &&
                     serie.otrosDatos.repesAnterior != null
-                ? '${serie.otrosDatos.pesoAnterior}kg x ${serie.otrosDatos.repesAnterior}'
+                ? '${serie.otrosDatos.pesoAnterior} x ${serie.otrosDatos.repesAnterior}'
                 : '-',
             style: const TextStyle(fontSize: 14)));
   }
