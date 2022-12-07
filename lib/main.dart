@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gym_app/domain/ejercicio.dart';
-import 'package:gym_app/presentation/ejercicio_list_view.dart';
+import 'package:gym_app/presentation/contador_pasos_view.dart';
+import 'package:gym_app/presentation/menu_entrenamiento_view.dart';
+import 'package:gym_app/shared/customPageRoute.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,58 +33,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Future<List<Ejercicio>?> _ejercicios;
-
-  @override
-  void initState() {
-    super.initState();
-    _ejercicios = getEjercicios();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(),
-        body: FutureBuilder(
-            future: _ejercicios,
-            builder: ((BuildContext context, AsyncSnapshot snap) {
-              if (snap.connectionState == ConnectionState.waiting) {
-                return const Center(child: Text('Cargando ejercicio ...'));
-              }
-
-              if (snap.hasError || !snap.hasData) {
-                return const Center(child: Text('No hay datos'));
-              }
-
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    EjercicioListView(ejercicios: snap.data),
-                    addEjercicio(snap.data)
-                  ],
-                ),
-              );
-            })));
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [goToMenuEntrenamiento(), goToContadorPasos()],
+        )));
   }
 
-  TextButton addEjercicio(List<Ejercicio> ejercicios) {
+  TextButton goToMenuEntrenamiento() {
     return TextButton(
         onPressed: () {
-          generateEjercicio(ejercicios);
+          Navigator.of(context)
+              .push(CustomPageRoute(child: const MenuEntrenamientoView()));
         },
-        child: const Text('Añadir ejercicio', style: TextStyle(fontSize: 26)));
+        child: const Text('Crear nuevo entrenamiento',
+            style: TextStyle(fontSize: 26)));
   }
 
-  void generateEjercicio(List<Ejercicio> ejercicios) {
-    ejercicios.add(Ejercicio.createTestEjercicio('Press banca'));
-    setState(() {});
+  TextButton goToContadorPasos() {
+    return TextButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: ((context) => const ContadorPasosView())));
+        },
+        child: const Text('Contador de pasos', style: TextStyle(fontSize: 26)));
   }
-}
-
-Future<List<Ejercicio>?> getEjercicios() async {
-  List<Ejercicio> l = [];
-
-  l.add(Ejercicio.createTestEjercicio('Bicep curl'));
-
-  return l.isNotEmpty ? l : null;
 }
