@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gym_app/presentation/contador_pasos_view.dart';
 import 'package:gym_app/presentation/menu_entrenamiento_view.dart';
-import 'package:gym_app/shared/customPageRoute.dart';
+import 'package:gym_app/shared/custom_page_route.dart';
 
 void main() {
   runApp(const MyApp());
