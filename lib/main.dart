@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [goToMenuEntrenamiento(), goToContadorPasos()],
+          children: [goToMenuEntrenamiento() /*, goToContadorPasos()*/],
         )));
   }
 
