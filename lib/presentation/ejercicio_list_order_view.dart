@@ -15,6 +15,8 @@ class EjercicioListOrderView extends StatefulWidget {
 class _EjercicioListOrderViewState extends State<EjercicioListOrderView> {
   @override
   Widget build(BuildContext context) {
-    return const Text('Esto es una prueba');
+    return Scaffold(
+        appBar: AppBar(),
+        body: const Center(child: Text('esto es una prueba')));
   }
 }
