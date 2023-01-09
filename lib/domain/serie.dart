@@ -23,11 +23,22 @@ class Serie {
 
   static createTestSerie(int numeroSerie) {
     return Serie(
-        id: const Uuid().toString(),
+        id: const Uuid().v4().toString(),
         numeroSerie: numeroSerie,
         tipoSerie: 'N',
         check: false,
         otrosDatos: OtrosDatosSerie(pesoAnterior: 6, repesAnterior: 12));
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['check'] = check;
+    data['numeroSerie'] = numeroSerie;
+    data['peso'] = peso;
+    data['repes'] = repes;
+    data['tipoSerie'] = tipoSerie;
+    return data;
   }
 }
 
