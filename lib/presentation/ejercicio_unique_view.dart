@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gym_app/domain/ejercicio.dart';
+import 'package:gym_app/domain/view_models/ejercicio_serie_viewmodel.dart';
 import 'package:gym_app/presentation/serie_list_view.dart';
 
 class EjercicioUniqueView extends StatefulWidget {
-  final ValueChanged<Ejercicio> selected;
-  final Ejercicio ejercicio;
+  final ValueChanged<EjercicioSerieViewModel> selected;
+  final EjercicioSerieViewModel ejercicio;
 
   const EjercicioUniqueView(
       {Key? key, required this.ejercicio, required this.selected})
@@ -22,17 +22,17 @@ class _EjercicioUniqueViewState extends State<EjercicioUniqueView> {
     return _builderRowEjercicio(widget.ejercicio);
   }
 
-  Column _builderRowEjercicio(Ejercicio ejercicio) {
+  Column _builderRowEjercicio(EjercicioSerieViewModel ejercicio) {
     List<Widget> children = [
       generateTitulo(ejercicio),
       const SizedBox(height: 10),
-      SerieListView(idEjercicio: ejercicio.nombre, visible: _showSerie)
+      SerieListView(ejercicio: ejercicio, visible: _showSerie)
     ];
 
     return Column(children: children);
   }
 
-  Row generateTitulo(Ejercicio ejercicio) {
+  Row generateTitulo(EjercicioSerieViewModel ejercicio) {
     return Row(children: [
       Expanded(
           flex: 25,
@@ -42,7 +42,7 @@ class _EjercicioUniqueViewState extends State<EjercicioUniqueView> {
               },
               onLongPress: () => widget.selected(ejercicio),
               style: const ButtonStyle(alignment: Alignment.topLeft),
-              child: Text(ejercicio.nombre,
+              child: Text(ejercicio.ejercicio.nombre,
                   style: const TextStyle(fontSize: 24)))),
       Expanded(
         child: Column(

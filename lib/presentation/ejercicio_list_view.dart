@@ -1,12 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
-import 'package:gym_app/domain/ejercicio.dart';
+import 'package:gym_app/domain/view_models/ejercicio_serie_viewmodel.dart';
 import 'package:gym_app/presentation/ejercicio_list_order_view.dart';
 import 'package:gym_app/presentation/ejercicio_unique_view.dart';
 
 class EjercicioListView extends StatefulWidget {
-  final List<Ejercicio>? ejercicios;
+  final List<EjercicioSerieViewModel>? ejercicios;
   const EjercicioListView({
     Key? key,
     required this.ejercicios,
@@ -22,7 +20,7 @@ class _EjercicioListViewState extends State<EjercicioListView> {
     return generarListaEjercicios(widget.ejercicios!);
   }
 
-  ListView generarListaEjercicios(List<Ejercicio> ejercicios) {
+  ListView generarListaEjercicios(List<EjercicioSerieViewModel> ejercicios) {
     return ListView.separated(
         shrinkWrap: true,
         padding: const EdgeInsets.all(8),
@@ -37,16 +35,17 @@ class _EjercicioListViewState extends State<EjercicioListView> {
             const SizedBox(height: 5));
   }
 
-  EjercicioUniqueView widgetListEjercicio(Ejercicio ejercicio) {
+  EjercicioUniqueView widgetListEjercicio(EjercicioSerieViewModel ejercicio) {
     return EjercicioUniqueView(
       ejercicio: ejercicio,
       selected: (value) => orderEjercicios(value),
     );
   }
 
-  void orderEjercicios(Ejercicio ejercicio) {
+  void orderEjercicios(EjercicioSerieViewModel ejercicio) {
     Navigator.of(context).push(MaterialPageRoute(
         builder: ((context) => EjercicioListOrderView(
-            ejercicios: widget.ejercicios!, ejercicioSelected: ejercicio))));
+            ejercicios: widget.ejercicios!.map((e) => e.ejercicio).toList(),
+            ejercicioSelected: ejercicio.ejercicio))));
   }
 }

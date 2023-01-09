@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gym_app/domain/serie.dart';
+import 'package:gym_app/domain/view_models/ejercicio_serie_viewmodel.dart';
 import 'package:gym_app/presentation/serie_unique_view.dart';
 
 class SerieListView extends StatefulWidget {
-  final String idEjercicio;
+  final EjercicioSerieViewModel ejercicio;
   final bool visible;
   const SerieListView(
-      {Key? key, required this.idEjercicio, required this.visible})
+      {Key? key, required this.ejercicio, required this.visible})
       : super(key: key);
 
   @override
@@ -14,12 +15,9 @@ class SerieListView extends StatefulWidget {
 }
 
 class _SerieListViewState extends State<SerieListView> {
-  late Future<List<Serie>?> _series;
-
   @override
   void initState() {
     super.initState();
-    _series = getSeries();
   }
 
   @override
@@ -27,8 +25,8 @@ class _SerieListViewState extends State<SerieListView> {
     return _builderListSerie();
   }
 
-  FutureBuilder _builderListSerie() {
-    return FutureBuilder(
+  Column _builderListSerie() {
+    /*return FutureBuilder(
         future: _series,
         builder: (BuildContext context, AsyncSnapshot snap) {
           if (!widget.visible) {
@@ -41,11 +39,13 @@ class _SerieListViewState extends State<SerieListView> {
 
           if (snap.hasError || !snap.hasData) {
             return const Center(child: Text('No hay datos'));
-          }
+          }*/
 
-          return Column(
-              children: [generarListaSeries(snap.data), addSerie(snap.data)]);
-        });
+    return Column(children: [
+      generarListaSeries(widget.ejercicio.series),
+      addSerie(widget.ejercicio.series)
+    ]);
+    // });
   }
 
   ListView generarListaSeries(List<Serie> series) {
@@ -102,7 +102,7 @@ class _SerieListViewState extends State<SerieListView> {
 Future<List<Serie>?> getSeries() async {
   List<Serie> l = [];
 
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 2; i++) {
     l.add(Serie.createTestSerie(i));
   }
 
