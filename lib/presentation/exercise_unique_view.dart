@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:gym_app/domain/view_models/ejercicio_serie_viewmodel.dart';
+import 'package:gym_app/domain/view_models/exercise_serie_viewmodel.dart';
 import 'package:gym_app/presentation/serie_list_view.dart';
 
-class EjercicioUniqueView extends StatefulWidget {
-  final ValueChanged<EjercicioSerieViewModel> selected;
-  final EjercicioSerieViewModel ejercicio;
+class ExerciseUniqueView extends StatefulWidget {
+  final ValueChanged<ExerciseSerieViewModel> selected;
+  final ExerciseSerieViewModel exercise;
 
-  const EjercicioUniqueView(
-      {Key? key, required this.ejercicio, required this.selected})
+  const ExerciseUniqueView(
+      {Key? key, required this.exercise, required this.selected})
       : super(key: key);
 
   @override
-  State<EjercicioUniqueView> createState() => _EjercicioUniqueViewState();
+  State<ExerciseUniqueView> createState() => _ExerciseUniqueViewState();
 }
 
-class _EjercicioUniqueViewState extends State<EjercicioUniqueView> {
+class _ExerciseUniqueViewState extends State<ExerciseUniqueView> {
   bool _showSerie = true;
 
   @override
   Widget build(BuildContext context) {
-    return _builderRowEjercicio(widget.ejercicio);
+    return _builderRowExercise(widget.exercise);
   }
 
-  Column _builderRowEjercicio(EjercicioSerieViewModel ejercicio) {
+  Column _builderRowExercise(ExerciseSerieViewModel exercise) {
     List<Widget> children = [
-      generateTitulo(ejercicio),
+      generateTitulo(exercise),
       const SizedBox(height: 10),
-      SerieListView(ejercicio: ejercicio, visible: _showSerie)
+      SerieListView(exercise: exercise, visible: _showSerie)
     ];
 
     return Column(children: children);
   }
 
-  Row generateTitulo(EjercicioSerieViewModel ejercicio) {
+  Row generateTitulo(ExerciseSerieViewModel exercise) {
     return Row(children: [
       Expanded(
           flex: 25,
@@ -40,28 +40,28 @@ class _EjercicioUniqueViewState extends State<EjercicioUniqueView> {
               onPressed: () {
                 changeShowSerie();
               },
-              onLongPress: () => widget.selected(ejercicio),
+              onLongPress: () => widget.selected(exercise),
               style: const ButtonStyle(alignment: Alignment.topLeft),
-              child: Text(ejercicio.ejercicio.nombre,
+              child: Text(exercise.exercise.nombre,
                   style: const TextStyle(fontSize: 24)))),
       Expanded(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             PopupMenuButton<String>(
-              tooltip: 'Opciones ejercicio',
+              tooltip: 'Opciones exercise',
               splashRadius: 20.0,
               itemBuilder: (context) => [
                 /**
                   * añadir nota, crear superserie 
-                  * cambiar ejercicio
+                  * cambiar exercise
                   * tiempo de descanso, tipo de peso (kg, lb)
-                  * eliminar ejercicio 
+                  * eliminar exercise 
                   */
                 const PopupMenuItem(
-                    value: 'cambiar', child: Text('Cambiar ejercicio')),
+                    value: 'cambiar', child: Text('Cambiar exercise')),
                 const PopupMenuItem(
-                    value: 'borrar', child: Text('Borrar ejercicio'))
+                    value: 'borrar', child: Text('Borrar exercise'))
               ],
             )
           ],

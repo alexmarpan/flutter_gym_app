@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gym_app/domain/serie.dart';
-import 'package:gym_app/domain/view_models/ejercicio_serie_viewmodel.dart';
+import 'package:gym_app/domain/view_models/exercise_serie_viewmodel.dart';
 import 'package:gym_app/presentation/serie_unique_view.dart';
 
 class SerieListView extends StatefulWidget {
-  final EjercicioSerieViewModel ejercicio;
+  final ExerciseSerieViewModel exercise;
   final bool visible;
-  const SerieListView(
-      {Key? key, required this.ejercicio, required this.visible})
+  const SerieListView({Key? key, required this.exercise, required this.visible})
       : super(key: key);
 
   @override
@@ -42,8 +41,8 @@ class _SerieListViewState extends State<SerieListView> {
           }*/
 
     return Column(children: [
-      generarListaSeries(widget.ejercicio.series),
-      addSerie(widget.ejercicio.series)
+      generarListaSeries(widget.exercise.series),
+      addSerie(widget.exercise.series)
     ]);
     // });
   }

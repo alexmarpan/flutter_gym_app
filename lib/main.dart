@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:gym_app/presentation/contador_pasos_view.dart';
-import 'package:gym_app/presentation/menu_entrenamiento_view.dart';
+import 'package:gym_app/domain/view_models/exercise_serie_viewmodel.dart';
+import 'package:gym_app/presentation/step_counter_view.dart';
+import 'package:gym_app/presentation/workout_menu_view.dart';
 import 'package:gym_app/shared/custom_page_route.dart';
+import 'package:gym_app/shared/utils.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,6 +39,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    super.initState();
+    seeFiles();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(),
@@ -41,26 +52,37 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [goToMenuEntrenamiento() /*, goToContadorPasos()*/],
+          children: [goToMenuWorkout()],
         )));
   }
 
-  TextButton goToMenuEntrenamiento() {
+  TextButton goToMenuWorkout() {
     return TextButton(
         onPressed: () {
           Navigator.of(context)
-              .push(CustomPageRoute(child: const MenuEntrenamientoView()));
+              .push(CustomPageRoute(child: const MenuWorkoutView()));
         },
-        child: const Text('Crear nuevo entrenamiento',
-            style: TextStyle(fontSize: 26)));
+        child:
+            const Text('Create new workout', style: TextStyle(fontSize: 26)));
   }
 
   TextButton goToContadorPasos() {
     return TextButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: ((context) => const ContadorPasosView())));
+              builder: ((context) => const StepCounterView())));
         },
-        child: const Text('Contador de pasos', style: TextStyle(fontSize: 26)));
+        child: const Text('Step counter', style: TextStyle(fontSize: 26)));
+  }
+
+  void seeFiles() async {
+    var files = await readFiles();
+    for (var element in files) {
+      if (element is File && element.path.endsWith('_train.json')) {
+        var prueba = ExerciseSerieViewModel.fromJson(
+            json.decode(element.readAsStringSync()));
+        print(prueba);
+      }
+    }
   }
 }

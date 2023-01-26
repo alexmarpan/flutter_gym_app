@@ -43,7 +43,7 @@ class _SerieUniqueViewState extends State<SerieUniqueView> {
             tooltip: 'Tipo de serie',
             onSelected: (String value) =>
                 onPopUpMenuButtonSelected(serie, value),
-            itemBuilder: (context) => opcionserie,
+            itemBuilder: (context) => serieoption,
             icon: Text(getTextoMenuButton(serie))));
   }
 

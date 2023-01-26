@@ -40,6 +40,16 @@ class Serie {
     data['tipoSerie'] = tipoSerie;
     return data;
   }
+
+  static fromJson(Map<String, dynamic> json) {
+    return Serie(
+        id: json['id'],
+        numeroSerie: json['numeroSerie'],
+        tipoSerie: json['tipoSerie'],
+        check: json['check'],
+        otrosDatos: OtrosDatosSerie(
+            pesoAnterior: null, repesAnterior: null, tiempoAnterior: null));
+  }
 }
 
 class OtrosDatosSerie {

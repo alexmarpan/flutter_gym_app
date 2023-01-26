@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
 
-class ContadorPasosView extends StatefulWidget {
-  const ContadorPasosView({super.key});
+class StepCounterView extends StatefulWidget {
+  const StepCounterView({super.key});
 
   @override
-  State<ContadorPasosView> createState() => _ContadorPasosViewState();
+  State<StepCounterView> createState() => _StepCounterViewState();
 }
 
-class _ContadorPasosViewState extends State<ContadorPasosView> {
+class _StepCounterViewState extends State<StepCounterView> {
   @override
   Widget build(BuildContext context) {
     return Center(

@@ -13,3 +13,9 @@ void writeToFile(String fileName, Map<String, dynamic> content) {
     createFile(content, directory, fileName);
   });
 }
+
+Future<List<FileSystemEntity>> readFiles() async {
+  return await getApplicationDocumentsDirectory().then((Directory dir) {
+    return dir.listSync(recursive: false, followLinks: false);
+  });
+}
